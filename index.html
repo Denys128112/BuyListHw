@@ -6,52 +6,51 @@
     <meta name="description" content="Buylist">
     <title>Мій список покупок</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
+    <script src="script.js"></script>
 </head>
 <body>
     
     <div class="container">
-        <form class="add-item-form">
-            <input type="text" name="item" placeholder="Назва товару"/>
-            <button type="submit" class="submit-button" data-tooltip="Знайти і додати товар до списку">Додати</button>
+        <form class="add-item-form" onsubmit="event.preventDefault(); addItem();">
+            <input type="text" id="itemInput" placeholder="Назва товару"/>
+            <button type="submit" class="submit-button" data-tooltip="Знайти і дoдати товар до списку">Дoдати</button>
         </form>
 
-        <div class="list-container">
+        <div class="list-container" id="itemList">
             
             <div class="ellement-section">
-                <div class="item-name tomato">Помідори</div>
+                <div class="item-name bought">Помідори</div>
                 <div class="item-counter">
                  <input type="number" value="2" class="quantity-input">
                 </div>
                 <div class="item-actions">
-                    <button type="button" class="status-button" data-tooltip="позначити як не куплено">Не куплено</button>
+                    <button type="button" class="status-button" onclick="toggleStatus(this.parentNode.parentNode)" data-tooltip="позначити як не куплено">Не куплено</button>
                 </div>
             </div>
 
             <div class="ellement-section">
-                <div class="item-name">Печиво</div>
+                <div class="item-name" onclick="renameItem(this)">Печиво</div>
                 <div class="item-counter">
-                    <button type="button" class="dec-button" data-tooltip="зменшити кількість">-</button>
-                    <input type="number" value="2" class="quantity-input">
-                    <button type="button" class="inc-button" data-tooltip="збільшити кількість">+</button>
+                    <button type="button" class="dec-button" data-tooltip="зменшити кількість" onclick="updateQuantity(this)">-</button>
+                    <input type="number" value="2" class="quantity-input" readonly>
+                    <button type="button" class="inc-button" data-tooltip="збільшити кількість" onclick="updateQuantity(this)">+</button>
                 </div>
                 <div class="item-actions">
-                    <button type="button" class="status-button" data-tooltip="позначити як куплено">Куплено</button>
-                    <button type="button" class="decline-button" data-tooltip="видалити товар">x</button>
+                    <button type="button" class="status-button" onclick="toggleStatus(this.parentNode.parentNode)" data-tooltip="позначити як куплено">Куплено</button>
+                    <button type="button" class="decline-button" onclick="deleteItem(this.parentNode.parentNode)" data-tooltip="видалити товар">x</button>
                 </div>
             </div>
 
             <div class="ellement-section">
-                <div class="item-name">
-                    <input type="text" class="edit-input" value="Сир">
-                </div>
+                <div class="item-name" onclick="renameItem(this)">Сир</div>
                 <div class="item-counter">
-                    <button type="button" class="dec-button disabled-btn" data-tooltip="зменшити кількість">-</button>
+                    <button type="button" class="dec-button disabled-btn" data-tooltip="зменшити кількість" onclick="updateQuantity(this)">-</button>
                     <input type="number" value="1" class="quantity-input">
-                    <button type="button" class="inc-button" data-tooltip="збільшити кількість">+</button>
+                    <button type="button" class="inc-button" data-tooltip="збільшити кількість" onclick="updateQuantity(this)">+</button>
                 </div>
                 <div class="item-actions">
-                    <button type="button" class="status-button" data-tooltip="позначити як куплено">Куплено</button>
-                    <button type="button" class="decline-button" data-tooltip="видалити товар">x</button>
+                    <button type="button" class="status-button" onclick="toggleStatus(this.parentNode.parentNode)" data-tooltip="позначити як куплено">Куплено</button>
+                    <button type="button" class="decline-button" onclick="deleteItem(this.parentNode.parentNode)" data-tooltip="видалити товар">x</button>
                 </div>
             </div>
 
@@ -77,7 +76,7 @@
         <h2 class="summary-title">Куплено</h2>
         <div class="summary-tags">
             <div class="product-tag">
-                <span class="tag-name tomato">Помідори</span>
+                <span class="tag-name bought">Помідори</span>
                 <span class="tag-count">2</span>
             </div>
         </div>
